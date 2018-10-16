@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>First React App</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
+</head>
+<body>
+  <div id='app'></div>
+
+  <script type='text/babel'>
+    //stateless functional component, uses primarily to just render UI based on props that it is passed down.
+    function AnimalList(props) {
+      return (
+        <ul>
+          {props.list.map((animal) => (
+            //add key prop whenever you map over items in React
+            <li key={animal}>
+              {animal}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    //STATE VS props
+    //state is local to a component, a component can manage its own state
+    //state should live in the most parent component, and then pass the data as props to child components
+
+    class App extends React.Component {
+    //animal objects no longer live inside the render method, now it lives in the component instance
+      constructor(props) {
+        super(props)
+        this.state = {
+          animals: ['cat','dog','ferret','coon']
+        }
+      }
+
+
+      render() {
+
+        return (
+          <div>
+            <AnimalList list={this.state.animals} />
+          </div>
+        )
+      }
+    }
+
+
+
+    ReactDOM.render(
+      <App />,
+      document.getElementById('app')
+    )
+  </script>
+</body>
+</html>
