@@ -29,16 +29,23 @@
       constructor(props) {
         super(props)
         this.state = {
-          animals: ['cat','dog','ferret','coon']
+          animals: ['cat','dog','ferret','coon'],
+          input: '',
         }
-        //bind the refence to the App component whenever the handleRemoveAnimal is invoked.
         this.handleRemoveAnimal = this.handleRemoveAnimal.bind(this)
+        this.updateInput = this.updateInput.bind(this)
+        this.handleAddAnimal = this.handleAddAnimal.bind(this)
       }
 
-      handleAddAnimal(name) {
-
+      handleAddAnimal() {
+        this.setState((currentState) => {
+          return {
+            animals: currentState.animals.concat([this.state.input]),
+            input: '',
+          }
+        })
       }
-      //pass this function as a prop to the animalList component.
+
       handleRemoveAnimal(name){
         this.setState((currentState) => {
           return {
@@ -47,9 +54,27 @@
         })
       }
 
+      updateInput(event){
+        const value = event.target.value
+
+        this.setState(() => ({
+          input: value
+        }))
+      }
+
+
+
       render() {
         return (
           <div>
+            <input
+            type="text"
+            placeholder="new animal"
+            value ={this.state.input}
+            onChange={this.updateInput}
+            />
+            <button onClick={this.handleAddAnimal} >Submit</button>
+
             <AnimalList
               list={this.state.animals}
               onRemoveAnimal={this.handleRemoveAnimal}
