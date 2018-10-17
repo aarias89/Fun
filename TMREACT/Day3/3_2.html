@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>First React App</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
+</head>
+<body>
+  <div id='app'></div>
+
+  <!--TEST API  -->
+  <script>
+    window.API = {
+      fetchAnimals() {
+        return new Promise((resolve,reject) => {
+          const animals = [
+            {
+              name: 'Dog',
+              active: true
+            },
+            {
+              name: 'Cat',
+              active: true
+            },
+            {
+              name: 'Ferret',
+              active: true
+            },
+            {
+              name: 'Coon',
+              active: true
+            },
+            {
+              name: 'Duck',
+              active: false
+            }
+          ]
+          setTimeout(() => resolve(animals),2000)
+        })
+      }
+    }
+  </script>
+
+  <script type='text/babel'>
+
+    class Loading extends React.Component {
+      constructor(props) {
+        super(props)
+
+        this.state = {
+          text: 'Loading'
+        }
+      }
+
+      componentDidMount() {
+        const stopper = this.state.text + '...'
+
+        window.setInterval(() => {
+          console.log('Running')
+          this.state.text === stopper
+            ? this.setState({text:'Loading'})
+            : this.setState((currentState) => {
+              return {
+                text: currentState.text + '.'
+              }
+            })
+        },300)
+      }
+
+      componentWillUnmount(){
+        
+      }
+
+
+
+      render () {
+        return <p>{this.state.text}</p>
+      }
+    }
+
+
+
+
+    function ActiveAnimals(props) {
+      return (
+        <div>
+          <h2>Active Animals</h2>
+          <ul>
+            {props.list.map((animal,i) => (
+              <li key={animal.name + i}>
+                <span>{animal.name}</span>
+                <button onClick={() => props.onRemoveAnimal(animal.name)}>Remove</button>
+                <button onClick={() => props.onToggleAnimal(animal.name)}>Deactivate</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    function InactiveAnimals(props) {
+      return (
+        <div>
+          <h2>Inactive Animals</h2>
+          <ul>
+            {props.list.map((animal,i) => (
+              <li key={animal.name + i}>
+                <span>{animal.name}</span>
+                <button onClick={() => props.onToggleAnimal(animal.name)}>Activate</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    class App extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          animals: [],
+          input: '',
+          loading: true,
+        }
+        this.handleRemoveAnimal = this.handleRemoveAnimal.bind(this)
+        this.updateInput = this.updateInput.bind(this)
+        this.handleAddAnimal = this.handleAddAnimal.bind(this)
+        this.handleToggleAnimal = this.handleToggleAnimal.bind(this)
+
+        console.log('--constructor--')
+      }
+
+      componentDidMount(){
+        console.log('--componentDidMount--')
+        API.fetchAnimals()
+          .then((animals) => {
+            this.setState({
+              animals,
+              loading: false
+            })
+          })
+      }
+
+      componentDidUpdate(){
+        console.log('--componentDidUpdate--')
+      }
+      componentWillUnmount() {
+        console.log('--componentWillUnmount--')
+      }
+
+      handleAddAnimal() {
+        this.setState((currentState) => {
+          return {
+            animals: currentState.animals.concat([{
+              name: currentState.input,
+              active: true,
+            }]),
+            input: '',
+          }
+        })
+      }
+
+      handleRemoveAnimal(name){
+        this.setState((currentState) => {
+          return {
+            animals: currentState.animals.filter((animal) => animal.name !== name)
+          }
+        })
+      }
+
+      handleToggleAnimal(name) {
+        this.setState((currentState) => {
+          const animal = currentState.animals.find((animal) => animal.name === name)
+
+          return{
+            animals: currentState.animals.filter((animal) => animal.name !== name)
+            .concat([{
+              name,
+              active: !animal.active
+            }])
+          }
+        })
+      }
+
+      updateInput(event){
+        const value = event.target.value
+
+
+        this.setState(() => ({
+          input: value
+        }))
+      }
+
+
+
+      render() {
+        console.log('--render--')
+
+        if(this.state.loading === true) {
+          return <Loading />
+        }
+
+
+
+        return (
+          <div>
+            <input
+            type="text"
+            placeholder="new animal"
+            value ={this.state.input}
+            onChange={this.updateInput}
+            />
+            <button onClick={this.handleAddAnimal} >Submit</button>
+            <div>
+              <button onClick={() => this.setState({
+                animals: []
+              })} >
+                Clear All
+              </button>
+            </div>
+            <ActiveAnimals
+              onRemoveAnimal={this.handleRemoveAnimal}
+              list={this.state.animals.filter((animal) => animal.active === true)}
+              onToggleAnimal={this.handleToggleAnimal}
+             />
+            <InactiveAnimals
+              list={this.state.animals.filter((animal) => animal.active === false)}
+              onToggleAnimal={this.handleToggleAnimal}
+             />
+          </div>
+        )
+      }
+    }
+
+
+    ReactDOM.render( <App />,  document.getElementById('app') )
+  </script>
+</body>
+</html>
