@@ -55,8 +55,9 @@
 
       componentDidMount() {
         const stopper = this.state.text + '...'
+        console.log('-##-Interval Mount-##-')
 
-        window.setInterval(() => {
+        this.interval = window.setInterval(() => {
           console.log('Running')
           this.state.text === stopper
             ? this.setState({text:'Loading'})
@@ -69,7 +70,8 @@
       }
 
       componentWillUnmount(){
-        
+        console.log('-##-Interval Unmount-##-')
+        window.clearInterval(this.interval)
       }
 
 
