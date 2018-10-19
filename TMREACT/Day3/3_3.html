@@ -57,7 +57,7 @@
         <nav>
           <ul>
             {props.langs.map((lang) => (
-              <li key={lang} onClick={() => ({})}>
+              <li key={lang} onClick={() => props.onSelectLanguage(lang)} >
                 {lang}
               </li>
             ))}
@@ -95,7 +95,10 @@
       render() {
         return (
           <div>
-            <Nav />
+            <Nav
+              langs = {this.state.languages}
+              onSelectLanguage = {this.handleSelectLanguage}
+            />
             <h1>
               Active Language: {this.state.activeLanguage}
             </h1>
