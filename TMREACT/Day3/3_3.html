@@ -84,12 +84,27 @@
           loading: true,
         }
         this.handleSelectLanguage = this.handleSelectLanguage.bind(this)
+        this.fetchRepos = this.fetchRepos.bind(this)
       }
 
       handleSelectLanguage(lang){
         this.setState({
           activeLanguage: lang
         })
+      }
+
+      fetchRepos(lang) {
+        this.setState({
+          loading: true
+
+        })
+        window.API.fetchPopularRepos(lang)
+          .then((data) => {
+            this.setState({
+              loading: false,
+              repos: data
+            })
+          })
       }
 
       render() {
