@@ -53,11 +53,10 @@
     }
 
     function Nav(props) {
-      const languages = ['all','javascript','ruby','python']
       return (
         <nav>
           <ul>
-            {languages.map((lang) => (
+            {props.langs.map((lang) => (
               <li key={lang} onClick={() => ({})}>
                 {lang}
               </li>
@@ -74,10 +73,20 @@
 
 
     class App extends React.Component {
+
+      constructor(props){
+        super(props)
+
+        this.state = {
+          languages: ['all','javascript','ruby','python'],
+          repos: [],
+        }
+      }
+
       render() {
         return (
           <div>
-            <Nav />
+            <Nav langs = {this.state.languages} />
 
           </div>
         )
