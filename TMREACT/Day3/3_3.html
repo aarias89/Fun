@@ -87,6 +87,11 @@
         this.fetchRepos = this.fetchRepos.bind(this)
       }
 
+
+      componentDidMount() {
+        this.fetchRepos(this.state.activeLanguage)
+      }
+
       handleSelectLanguage(lang){
         this.setState({
           activeLanguage: lang
@@ -115,7 +120,17 @@
               onSelectLanguage = {this.handleSelectLanguage}
             />
             <h1>
-              Active Language: {this.state.activeLanguage}
+              Active Language:
+              {this.state.loading === true
+              ? <Loading />
+              : <div>
+                  <h1 style={{textAlign: 'center'}}>
+                    {this.state.activeLanguage}
+                  </h1>
+                  <p>To test if data is coming from API</p>
+                  {JSON.stringify(this.state.repos)}
+                </div>}
+
             </h1>
 
           </div>
