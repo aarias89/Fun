@@ -80,13 +80,25 @@
         this.state = {
           languages: ['all','javascript','ruby','python'],
           repos: [],
+          activeLanguage: 'all',
+          loading: true,
         }
+        this.handleSelectLanguage = this.handleSelectLanguage.bind(this)
+      }
+
+      handleSelectLanguage(lang){
+        this.setState({
+          activeLanguage: lang
+        })
       }
 
       render() {
         return (
           <div>
-            <Nav langs = {this.state.languages} />
+            <Nav />
+            <h1>
+              Active Language: {this.state.activeLanguage}
+            </h1>
 
           </div>
         )
