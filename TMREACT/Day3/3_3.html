@@ -103,6 +103,11 @@
       componentDidMount() {
         this.fetchRepos(this.state.activeLanguage)
       }
+      componentDidUpdate(prevProps, prevState) {
+        if (prevState.activeLanguage !== this.state.activeLanguage){
+          this.fetchRepos(this.state.activeLanguage)
+        }
+      }
 
       handleSelectLanguage(lang){
         this.setState({
