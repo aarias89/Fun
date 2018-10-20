@@ -6,8 +6,8 @@ import {
 
 
 
-function Topic() {
-  return <h3>TOPIC 1</h3>
+function Topic({ match }) {
+  return <h3>{ match.params.topicId }</h3>
 }
 
 
@@ -30,10 +30,7 @@ export default function Topics() {
 
       <hr />
 
-      <Route path="/topics/rendering" component={Topic} />
-      <Route path="/topics/components" component={Topic} />
-      <Route path="/topics/props-v-state" component={Topic} />
-
+      <Route path="/topics/:topicId" component={Topic} />
     </div>
   )
 }
