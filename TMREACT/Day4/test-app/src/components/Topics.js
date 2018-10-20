@@ -12,25 +12,28 @@ function Topic({ match }) {
 
 
 
-export default function Topics(match) {
+export default function Topics( { match } ) {
   return (
     <div>
       <h2>Topics</h2>
       <ul>
         <li>
-          <Link to={`${match.url}/rendering}`}> Rendering With React</Link>
+          <Link to={`${match.url}/rendering`}> Rendering With React</Link>
         </li>
         <li>
-          <Link to={`${match.url}/components}`}>Components</Link>
+          <Link to={`${match.url}/components`}>Components</Link>
         </li>
         <li>
-          <Link to={`${match.url}/props-v-state}`}>Props vs State</Link>
+          <Link to={`${match.url}/props-v-state`}>Props vs State</Link>
         </li>
       </ul>
 
       <hr />
 
-      <Route path="/topics/:topicId" component={Topic} />
+      <Route path={`${match.path}/:topicId`} component={Topic} />
+      <Route exact path={match.url} render={() => {
+        return <h3> Please select topic: </h3>
+      }} />
     </div>
   )
 }
