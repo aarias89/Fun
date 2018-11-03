@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint **/*.{js,jsx} --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel src/index.html"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "eslint": "^5.8.0",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-prettier": "^2.6.2",
+    "parcel-bundler": "^1.10.3",
     "prettier": "^1.14.3"
   }
 }
