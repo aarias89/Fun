@@ -23557,21 +23557,22 @@ var _default = Pet;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js"}],"Keys.js":[function(require,module,exports) {
 var Keys = {};
-module.exports = {};
+module.exports = {
+  API_KEY: "762c81f6ae49f92ea6e397692a8c215f",
+  API_SECRET: "e8c9cfcf59d876fcec26504172dcc06d"
+};
 },{}],"App.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
 
-var _reactDom = _interopRequireWildcard(require("react-dom"));
+var _reactDom = require("react-dom");
 
 var _petfinderClient = _interopRequireDefault(require("petfinder-client"));
 
 var _Pet = _interopRequireDefault(require("./Pet"));
 
 var _Keys = require("./Keys");
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23610,9 +23611,17 @@ function (_React$Component) {
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var promise = petfinder.breed.list({
+        animal: "dog"
+      });
+      promise.then(console.log, console.error);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, console.log(_Keys.API_KEY), _react.default.createElement("h1", null, "Adopt Me"), _react.default.createElement(_Pet.default, {
+      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me"), _react.default.createElement(_Pet.default, {
         name: "Ricky",
         animal: "Dog",
         breed: "GSD"
@@ -23631,7 +23640,7 @@ function (_React$Component) {
   return App;
 }(_react.default.Component);
 
-_reactDom.default.render(_react.default.createElement(App), document.getElementById("root"));
+(0, _reactDom.render)(_react.default.createElement(App), document.getElementById("root"));
 },{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","./Pet":"Pet.js","./Keys":"Keys.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
