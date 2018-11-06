@@ -19,7 +19,6 @@ export default class Pet extends React.Component {
           <div className="info">
             <h1>{name}</h1>
             <h2>
-              {console.log(location)}
               {animal} - {breed} - {location}
             </h2>
           </div>
