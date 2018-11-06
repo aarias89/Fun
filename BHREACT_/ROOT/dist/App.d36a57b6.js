@@ -23648,7 +23648,22 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return (//pre (preformatted)/code will allow you to dump all yourstate into your DOM for testing
-        _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me"), _react.default.createElement("pre", null, _react.default.createElement("code", null, JSON.stringify(this.state, null, 4))))
+        _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me"), _react.default.createElement("div", null, this.state.pets.map(function (pet) {
+          var breed;
+
+          if (Array.isArray(pet.breeds.breed)) {
+            breed = pet.breeds.breed.join(', ');
+          } else {
+            breed = pet.breeds.breed;
+          }
+
+          return _react.default.createElement(_Pet.default, {
+            key: pet.id,
+            animal: pet.animal,
+            name: pet.name,
+            breed: breed
+          });
+        })))
       );
     }
   }]);
