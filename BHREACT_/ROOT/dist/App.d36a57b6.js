@@ -23604,36 +23604,52 @@ var App =
 function (_React$Component) {
   _inherits(App, _React$Component);
 
-  function App() {
+  function App(props) {
+    var _this;
+
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(App).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
+    _this.state = {
+      pets: []
+    };
+    return _this;
   }
 
   _createClass(App, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var promise = petfinder.breed.list({
-        animal: "dog"
+      var _this2 = this;
+
+      petfinder.pet.find({
+        output: "full",
+        location: "New York, NY"
+      }).then(function (data) {
+        var pets; //XML data check if response is not empty, if its empty it will default to NULL
+
+        if (data.petfinder.pets && data.petfinder.pets.pet) {
+          //check if reponse is an object or array of objects
+          if (Array.isArray(data.petfinder.pets.pet)) {
+            pets = data.petfinder.pets.pet;
+          } else {
+            pets = [data.petfinder.pets.pet];
+          }
+        } else {
+          pets = [];
+        }
+
+        _this2.setState({
+          //since key (peys) and value (pets) are the same, we can just write pets
+          pets: pets
+        });
       });
-      promise.then(console.log, console.error);
     }
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me"), _react.default.createElement(_Pet.default, {
-        name: "Ricky",
-        animal: "Dog",
-        breed: "GSD"
-      }), _react.default.createElement(_Pet.default, {
-        name: "Katrina",
-        animal: "Dog",
-        breed: "GSD"
-      }), _react.default.createElement(_Pet.default, {
-        name: "Tango",
-        animal: "Dog",
-        breed: "Golden Retreiver"
-      }));
+      return (//pre (preformatted)/code will allow you to dump all yourstate into your DOM for testing
+        _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me"), _react.default.createElement("pre", null, _react.default.createElement("code", null, JSON.stringify(this.state, null, 4))))
+      );
     }
   }]);
 

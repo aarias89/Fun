@@ -10,20 +10,49 @@ const petfinder = pf({
 });
 
 class App extends React.Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      pets: []
+    }
+  }
 
   componentDidMount() {
-    const promise = petfinder.breed.list( {animal: "dog"})
+    petfinder.pet
+      .find({ output: "full", location: "New York, NY"})
+      .then( data => {
+        let pets ;
+        //XML data check if response is not empty, if its empty it will default to NULL
+        if(data.petfinder.pets && data.petfinder.pets.pet)
+        {
+          //check if reponse is an object or array of objects
+          if (Array.isArray(data.petfinder.pets.pet)) {
+            pets = data.petfinder.pets.pet
+          } else {
+            pets = [data.petfinder.pets.pet]
+          }
+        } else {
+          pets = []
+        }
 
-    promise.then(console.log, console.error)
+        this.setState({
+          //since key (peys) and value (pets) are the same, we can just write pets
+          pets
+        })
+      })
   }
 
   render() {
     return (
+      //pre (preformatted)/code will allow you to dump all yourstate into your DOM for testing
       <div>
         <h1>Adopt Me</h1>
-        <Pet name="Ricky" animal="Dog" breed="GSD" />
-        <Pet name="Katrina" animal="Dog" breed="GSD" />
-        <Pet name="Tango" animal="Dog" breed="Golden Retreiver" />
+        <pre>
+          <code>
+            {JSON.stringify(this.state,null, 4)}
+          </code>
+        </pre>
       </div>
       )
   }
