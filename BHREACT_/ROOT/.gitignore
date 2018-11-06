@@ -5,5 +5,5 @@
 .env
 .env.default
 Keys.js
-.cache
-.dist
+.cache/
+dist/
