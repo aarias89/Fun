@@ -13,7 +13,6 @@ export default class SearchParams extends React.Component {
     animal: '',
     breed: '',
     breeds: [],
-
   }
 
   handleLocationChange = event => {
@@ -24,14 +23,21 @@ export default class SearchParams extends React.Component {
 
   handleAnimalChange = event => {
     this.setState({
-      animal: event.target.value
+      animal: event.target.value,
+      breed: ""
+    }, this.getBreeds)
+  }
+
+  handleBreedChange = event => {
+    this.setState ({
+      breed: event.target.value
     })
   }
 
   getBreeds() {
     if(this.state.animal) {
       petfinder.breed.list({ animal: this.state.animal }).then(data => {
-        if(
+        if (
           data.petfinder &&
           data.petfinder.breeds &&
           Array.isArray(data.petfinder.breeds.breed)
@@ -68,14 +74,33 @@ export default class SearchParams extends React.Component {
             onChange={this.handleAnimalChange}
             onBlur={this.handleAnimalChange}
           >
-            <option></option>
-            {
-              ANIMALS.map(animal => (
-                <option key={animal} value={animal}>{animal}</option>
-              ))
-            }
+            <option value=""> All Animals </option>
+            {ANIMALS.map(animal => (
+                <option key={animal} value={animal}>
+                  {animal}
+                </option>
+            ))}
           </select>
         </label>
+
+        <label htmlFor="breed">
+          Breed
+          <select
+            id="breed"
+            value={this.state.breed}
+            onChange={this.handleBreedChange}
+            onBlur={this.handleBreedChange}
+            disabled={this.state.breeds.length === 0}
+          >
+            <option value=""> All Breeds </option>
+            {this.state.breeds.map(breed => (
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button>Submit</button>
       </div>
     )
   }
