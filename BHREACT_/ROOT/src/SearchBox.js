@@ -13,13 +13,17 @@ import { Consumer } from './SearchContext'
 
     //function context as a child, move all markup into this context function, everything in this context functino can be referenced, context is the state of App.js
 export default class SearchBox extends React.Component {
-
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    this.props.search()
+  }
   render() {
     return (
       <Consumer>
 
       { context => (
          <div className="search-params">
+         <form onSubmit={this.handleFormSubmit}>
           <label htmlFor="location">
             Location
             <input
@@ -64,9 +68,9 @@ export default class SearchBox extends React.Component {
             </select>
           </label>
           <button>Submit</button>
+          </form>
         </div>
       )}
-
       </Consumer>
     )
   }
