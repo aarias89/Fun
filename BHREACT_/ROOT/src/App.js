@@ -6,8 +6,14 @@ import Details from "./Details";
 import SearchParams from './SearchParams'
 import pf from 'petfinder-client'
 import { Provider } from './SearchContext'
+import { API_KEY, API_SECRET } from './Keys';
 
 
+
+const petfinder = pf({
+  key: API_KEY,
+  secret: API_SECRET
+})
 //context will be reading from App state, then providing that info into the provider, the consumer will allow the data to be read from the other endpoint.
 class App extends React.Component {
 
