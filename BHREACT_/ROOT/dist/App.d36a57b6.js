@@ -26387,7 +26387,12 @@ function (_React$Component) {
       });
     }, _this.handleAnimalChange = function (event) {
       _this.setState({
-        animal: event.target.value
+        animal: event.target.value,
+        breed: ""
+      }, _this.getBreeds);
+    }, _this.handleBreedChange = function (event) {
+      _this.setState({
+        breed: event.target.value
       });
     }, _temp));
   }
@@ -26436,12 +26441,29 @@ function (_React$Component) {
         value: this.state.animal,
         onChange: this.handleAnimalChange,
         onBlur: this.handleAnimalChange
-      }, _react.default.createElement("option", null), _petfinderClient.ANIMALS.map(function (animal) {
+      }, _react.default.createElement("option", {
+        value: ""
+      }, " All Animals "), _petfinderClient.ANIMALS.map(function (animal) {
         return _react.default.createElement("option", {
           key: animal,
           value: animal
         }, animal);
-      }))));
+      }))), _react.default.createElement("label", {
+        htmlFor: "breed"
+      }, "Breed", _react.default.createElement("select", {
+        id: "breed",
+        value: this.state.breed,
+        onChange: this.handleBreedChange,
+        onBlur: this.handleBreedChange,
+        disabled: this.state.breeds.length === 0
+      }, _react.default.createElement("option", {
+        value: ""
+      }, " All Breeds "), this.state.breeds.map(function (breed) {
+        return _react.default.createElement("option", {
+          key: breed,
+          value: breed
+        }, breed);
+      }))), _react.default.createElement("button", null, "Submit"));
     }
   }]);
 
@@ -26541,7 +26563,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46341" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59060" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
