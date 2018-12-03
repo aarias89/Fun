@@ -1,0 +1,9 @@
+#ignore these files
+tags.js
+test_emails.txt
+.DS_Store
+#ignore build folder
+build/*
+#ignore node_modules
+node_modules/*
+*~
