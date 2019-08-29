@@ -13,9 +13,9 @@ const UserType = new GraphQLObjectType({
 
 // hardcoded mock data
 const users = [
-  { id: '23', firstName: 'Bilbo', age: '430' },
-  { id: '46', firstName: 'Frodo', age: '32' },
-  { id: '54', firstName: 'Boromir', age: '45' }
+  { id: '0', firstName: 'Bilbo', age: '430' },
+  { id: '1', firstName: 'Frodo', age: '32' },
+  { id: '2', firstName: 'Boromir', age: '45' }
 ];
 
 const RootQuery = new GraphQLObjectType({
