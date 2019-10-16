@@ -1,4 +1,4 @@
-# dependencies
+go# dependencies
 /node_modules
 # misc
 .DS_Store
