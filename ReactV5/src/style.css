@@ -5,7 +5,8 @@
 
 body {
   background-color: #81a69b;
-  background-image: url(http://static.frontendmasters.com/resources/2019-05-02-complete-intro-react-v5/image-background.png);
+  /* background-image: url(http://static.frontendmasters.com/resources/2019-05-02-complete-intro-react-v5/image-background.png); */
+  background-image: url(https://picjumbo.com/wp-content/uploads/white-eco-fur-pattern-background_free_stock_photos_picjumbo_DSC06787-2210x1473.jpg);
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
